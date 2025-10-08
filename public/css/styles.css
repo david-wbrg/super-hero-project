@@ -1,0 +1,37 @@
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .container {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+    .card {
+    transition: transform 0.2s;
+    border: none;
+    }
+    .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+    .card-header {
+    border-radius: 15px 15px 0 0;
+    }
+    h1 {
+    color: #333;
+    font-weight: bold;
+    }
+    .badge {
+    font-size: 0.9rem;
+    }
+    .btn {
+    transition: all 0.3s;
+    }
+    .btn:hover {
+        transform: scale(1.05);
+        }
