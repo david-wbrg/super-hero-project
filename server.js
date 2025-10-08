@@ -79,3 +79,58 @@ app.get("/heroes", async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+
+app.put("/heroes/:id", async (req, res) => {
+  try {
+    const heroes = await readHeroes();
+    const heroIndex = heroes.findIndex((h) => h.id === req.params.id);
+    if (heroIndex === -1) {
+      return res.status(404).json({ success: false, error: "Hero not found" });
+    }
+    heroes[heroIndex] = {
+      ...heroes[heroIndex],
+      superName: req.body.superName,
+      realName: req.body.realName,
+      superpower: req.body.superpower,
+      powerLevel: parseInt(req.body.powerLevel),
+      secretIdentity: req.body.secretIdentity === "true",
+      updatedAt: new Date().toISOString(),
+    };
+    await writeHeroes(heroes);
+    res.json({ success: true, data: heroes[heroIndex] });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.delete('/heroes/:id', async (req, res) => {
+try {
+const heroes = await readHeroes();
+const filteredHeroes = heroes.filter(h => h.id !== req.params.id);
+if (heroes.length === filteredHeroes.length) {
+return res.status(404).json({ success: false, error: 'Hero not found' });
+}
+await writeHeroes(filteredHeroes);
+res.json({ success: true, message: 'Hero deleted' });
+} catch (error) {
+res.status(500).json({ success: false, error: error.message });
+}
+});
+
+app.get("/", (req, res) => {
+  const heroFields = require("./config/heroInputs.config.js");
+  res.render("heroForm", heroFields);
+});
+
+// Install: npm install mongodb
+const { MongoClient } = require('mongodb');
+const MONGODB_URI = process.env.MONGODB_URI;
+let db;
+MongoClient.connect(MONGODB_URI)
+.then((client) => {
+console.log('Connected to MongoDB');
+db = client.db('superhero-db');
+})
+.catch((error) => console.error('MongoDB Error', error));
+// Update routes to use db.collection('heroes') instead of file system
+
