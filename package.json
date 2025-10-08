@@ -1,0 +1,27 @@
+{
+  "name": "super-hero-project",
+  "version": "1.0.0",
+  "description": "Year 2 Quarter 1 - Team Project - Captain",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-wm:david-wbrg/super-hero-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.1.0",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.20.0"
+  }
+}

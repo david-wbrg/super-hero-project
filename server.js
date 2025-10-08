@@ -7,6 +7,17 @@ const app = express();
 const PORT = 3000;
 const DATA_FILE = path.join(__dirname, "data", "heroes.json");
 
+// Install: npm install mongodb
+//const { MongoClient } = require('mongodb');
+//const MONGODB_URI = process.env.MONGODB_URI;
+//let db;
+//MongoClient.connect(MONGODB_URI)
+//.then((client) => {
+//console.log('Connected to MongoDB');
+//db = client.db('superhero-db');
+//})
+//.catch((error) => console.error('MongoDB Error', error));
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -39,9 +50,7 @@ async function initializeDataFile() {
 
 initializeDataFile();
 // Routes go here...
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+
 
 app.post("/heroes", async (req, res) => {
   try {
@@ -117,20 +126,16 @@ res.status(500).json({ success: false, error: error.message });
 }
 });
 
+
 app.get("/", (req, res) => {
-  const heroFields = require("./config/heroInputs.config.js");
-  res.render("heroForm", heroFields);
+    const heroFields = require("./config/heroInputs.config.js");
+    res.render("heroForm", {heroFields});
 });
 
-// Install: npm install mongodb
-const { MongoClient } = require('mongodb');
-const MONGODB_URI = process.env.MONGODB_URI;
-let db;
-MongoClient.connect(MONGODB_URI)
-.then((client) => {
-console.log('Connected to MongoDB');
-db = client.db('superhero-db');
-})
-.catch((error) => console.error('MongoDB Error', error));
+
 // Update routes to use db.collection('heroes') instead of file system
 
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
